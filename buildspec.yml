@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       # install terraform binary
-      - yum update -y
       - yum install -y yum-utils
       - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
       - yum -y install terraform
@@ -12,9 +11,7 @@ phases:
       - terraform --version
   pre_build:
     commands:
-      - terraform validate
-    finally:
-      - echo This always runs even if the login command fails
+      - terraform init
   build:
     commands:
       - terraform apply -auto-approve
